@@ -1,6 +1,5 @@
 const randomColor = require('randomcolor');
 const uuidv4 = require('uuid/v4');
-//const userList = {};
 const store = {
     userList: [],
 };
