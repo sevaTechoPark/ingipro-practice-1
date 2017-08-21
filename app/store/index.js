@@ -6,6 +6,14 @@ const store = {
 let lock = false;
 let userLock;
 
+exports.getUser = function (userId) {
+    for (let i = 0; i < store.userList.length; i++){
+        if (store.userList[i].userId === userId) {
+            return store.userList[i];
+        }
+    }
+};
+
 exports.userAdd = function (login) {
     const id = uuidv4();
     store.userList.push({
