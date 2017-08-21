@@ -8,7 +8,7 @@ const SERVER_PORT = 3000;
 
 app.use(serveStatic(path.join(__dirname, '..', 'build')));
 
-const server = http.createServer(app);
+const server = http.Server(app);
 server.listen(SERVER_PORT, () => {
     // eslint-disable-next-line
     console.log(`Server started on localhost:${SERVER_PORT}`);
