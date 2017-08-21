@@ -1,17 +1,14 @@
 const http = require('http');
 const path = require('path');
 const express = require('express');
-const serveStatic = require('serve-static');
 
+const PORT = 3000;
 const app = express();
-const SERVER_PORT = 3000;
-
-app.use(serveStatic(path.join(__dirname, '..', 'build')));
 
 const server = http.Server(app);
-server.listen(SERVER_PORT, () => {
+server.listen(PORT, () => {
     // eslint-disable-next-line
-    console.log(`Server started on localhost:${SERVER_PORT}`);
+    console.log(`Server started on localhost:${PORT}`);
 });
 
 const io = require('./socket')(server);
