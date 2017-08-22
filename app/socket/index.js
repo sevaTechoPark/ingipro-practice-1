@@ -42,6 +42,9 @@ module.exports = function (server) {
                         break;
                     case 'canvas:unlock':
                         store.unlock(payload.userId);
+                        io.emit('main', {
+                            type: 'conference:unlock',
+                        });
                         break;
                     default:
                         if (store.addData(type, payload)) {
