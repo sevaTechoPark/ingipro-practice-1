@@ -12,8 +12,11 @@ module.exports = function (server) {
         socket
             .on('main', ({type, payload}) => {
 
-                if (!(/^[a-zA-Z]:[a-zA-Z]*$/.test(type))) {
-                    throw new Error('Wrong type');
+                if (!(/^[a-z]+:[a-z]+$/.test(type))) {
+                    socket.emit('main', {
+                        type: 'conference:fail',
+                        message: `Wrong type: ${type}`,
+                    });
                 }
 
                 switch (type) {
@@ -32,13 +35,13 @@ module.exports = function (server) {
                     case 'canvas:lock':
                         if (store.lock(payload.userId)) {
                             socket.emit('main', {type: 'lock:accept'});
+                            io.emit('main', {
+                                type: 'conference:lock',
+                                payload: store.getUser(payload.userId),
+                            });
                         } else {
                             socket.emit('main', {type: 'lock:denied'});
                         }
-                        io.emit('main', {
-                            type: 'conference:lock',
-                            payload: store.getUser(payload.userId),
-                        });
                         break;
                     case 'canvas:unlock':
                         store.unlock(payload.userId);
@@ -61,8 +64,11 @@ module.exports = function (server) {
                     payload: user,
                 });
             })
-            .on('error', (eror) => {
-                socket.emit('server:error', eror);
+            .on('error', (error) => {
+                socket.emit('main', {
+                    type: 'conference:fail',
+                    message: error,
+                });
             });
     });
 
