@@ -16,14 +16,14 @@ class WebSocket {
         if (data._fromServer) {
             return;
         } else {                                                                                 //Send on Server
-            this._socket.emit('main', { type, payload: data } );
+            this._socket.emit('main', { type, payload: data });
         }
     }
 
     socketEmitMediator(data) {
-        data = (data === undefined) ? {}: data;
-
-        const {type, payload} = data;
+        const {type, payload} = ('payload' in data) ? 
+                                data: 
+                                { type: data.type, payload: {} };
         payload._fromServer = true;
 
         Mediator.emit(type, payload);
