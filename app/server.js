@@ -6,6 +6,7 @@ const serveStatic = require('serve-static');
 const app = express();
 const SERVER_PORT = 3000;
 
+
 app.use(serveStatic(path.join(__dirname, '..', 'build')));
 
 const server = http.Server(app);
