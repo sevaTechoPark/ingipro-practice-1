@@ -21,6 +21,8 @@ class WebSocket {
     }
 
     socketEmitMediator(data) {
+        data = (data === undefined) ? {}: data;
+
         const {type, payload} = data;
         payload._fromServer = true;
 
