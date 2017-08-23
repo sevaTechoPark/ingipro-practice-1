@@ -15,8 +15,12 @@ const users = new Users(document.querySelector('.users'));
 login.show();
 
 // wait to login
-mediator.on('user:logged', () => {
+mediator.on('conference:sync', () => {
     login.hide();
     layout.show();
     users.show();
+});
+
+mediator.on('*', (data, type) => {
+    console.info(`Event type: ${type}, data: ${data}`);
 });
