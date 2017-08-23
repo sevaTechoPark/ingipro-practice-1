@@ -21,9 +21,8 @@ class WebSocket {
     }
 
     socketEmitMediator(data) {
-        const {type, payload} = ('payload' in data) ? 
-                                data: 
-                                { type: data.type, payload: {} };
+        const {type, payload = {}} = data;
+        
         payload._fromServer = true;
 
         Mediator.emit(type, payload);
